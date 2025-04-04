@@ -1,27 +1,27 @@
 package com.example.apilist.data.network
 
-import android.provider.ContactsContract
+import com.example.apilist.data.model.Data
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import retrofit2.Response // ojito response retrofit  hay otro
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-/*class ApiInterface {
-    @GET("people/")
+interface ApiInterface {
+        @GET("character/")
+        suspend fun getData(): Response<Data>                                                                //Això és necessari ja que la crida la farem dins d’una corrutina.
 
-    suspend fun getData(): Response<Data> {
-    }
 
     companion object {
-        val BASE_URL = "https://swapi.dev/api/"
-        fun create(): ApiInterface {
-            val client = OkHttpClient.Builder().build()
-            val retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
-                GsonConverterFactory.create()
-            ).client(client).build()
-            return retrofit.create(ApiInterface::class.java)
+            val BASE_URL = "https://api.disneyapi.dev"
+            fun create(): ApiInterface {
+                val client = OkHttpClient.Builder().build()
+                val retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
+                    GsonConverterFactory.create()
+                ).client(client).build()
+                return retrofit.create(ApiInterface::class.java)
+            }
         }
     }
 
-}*/
