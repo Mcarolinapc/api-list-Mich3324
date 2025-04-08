@@ -2,12 +2,15 @@ package com.example.apilist.ui.screens
 
 import android.icu.text.IDNA
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +35,7 @@ import com.example.apilist.data.model.Personaje
 
 
 @Composable
-fun ListScreen(padding: Modifier) {
+fun ListScreen(navigateToNetx:(Int)->Unit) {
     val myViewModel: APIViewModel = viewModel<APIViewModel>()
     val characters: Data by myViewModel.characters.observeAsState(Data(emptyList(), Info(0,"",0, 0)))
     val showloading: Boolean by myViewModel.showloading.observeAsState(true)
@@ -48,9 +51,15 @@ fun ListScreen(padding: Modifier) {
         }
     } else {
         LazyColumn(Modifier.fillMaxSize()) {
-            items(characters.data) {
-                CharacterItem(character = it)
-
+            items(characters.data) {character->
+                CharacterItem(
+                    character = character,
+                    onClick = { clickedCharacter ->
+                        // Aquí puedes hacer algo con el personaje clicado
+                        println("Has hecho click en: ${clickedCharacter.name} ${clickedCharacter._id}")
+                        navigateToNetx(clickedCharacter._id)
+                    }
+                )
             }
         }
     }
@@ -58,17 +67,20 @@ fun ListScreen(padding: Modifier) {
 
 
     @Composable
+    fun CharacterItem(character: Personaje, onClick: (Personaje) -> Unit) {
 
-    fun CharacterItem(character: Personaje) {
+
         Card(
             border = BorderStroke(2.dp, color = Color.Black),
             shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp).statusBarsPadding().background(Color.DarkGray)
+
         ) {
             Row(
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth()
+                    .clickable{ onClick(character) }
             ) {
 
                 Text(
@@ -80,3 +92,4 @@ fun ListScreen(padding: Modifier) {
             }
         }
     }
+
