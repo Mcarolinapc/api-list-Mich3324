@@ -67,7 +67,9 @@ fun DetalleScreen( id:Int, navigateToNext:()->Unit){
                 CircularProgressIndicator()
             }
         } else {
-            LazyColumn(Modifier.fillMaxSize()) {
+            LazyColumn(Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
                 item {
                     DetallePersonajeItem(
                         character = dataPersonaje.data,
@@ -91,68 +93,69 @@ fun DetalleScreen( id:Int, navigateToNext:()->Unit){
 
 @Composable
 fun DetallePersonajeItem(character: Personaje, onClick: (Personaje) -> Unit) {
-    Card(
-        border = BorderStroke(2.dp, color = Color.Black),
-        shape = RoundedCornerShape(8.dp),
-        modifier = Modifier.padding(8.dp)
-            .fillMaxSize()
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize()
-                .clickable { onClick(character) }
+
+       Card(
+           border = BorderStroke(2.dp, color = Color.Black),
+            shape = RoundedCornerShape(8.dp),
+            modifier = Modifier.padding(8.dp)
         ) {
-
-            // Detalles del personaje
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(
-                modifier = Modifier.fillMaxSize()
+            Row(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxSize()
+                    .clickable { onClick(character) }
             ) {
-                //imagen de corazón que cuando haga click ejecute el onclick que debe de guardar en BBDD
 
-                // Imagen del personaje usando AsyncImage
-                AsyncImage(
-                    model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
-                    contentDescription = character.name,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(8.dp)),
-                    contentScale = ContentScale.Crop,
-                    placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
-                    error = painterResource(id = R.drawable.ic_launcher_background) // Imagen de error si la carga falla
-                )
+                // Detalles del personaje
+                Spacer(modifier = Modifier.width(16.dp))
 
-                Text(
-                    text = character.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Column(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    //imagen de corazón que cuando haga click ejecute el onclick que debe de guardar en BBDD
 
-                Spacer(modifier = Modifier.height(8.dp))
+                    // Imagen del personaje usando AsyncImage
+                    AsyncImage(
+                        model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
+                        contentDescription = character.name,
+                        modifier = Modifier
+                            .size(250.dp)
+                            .clip(RoundedCornerShape(16.dp)),
+                        contentScale = ContentScale.Crop,
+                        placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
+                        error = painterResource(id = R.drawable.ic_launcher_background) // Imagen de error si la carga falla
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
 
-                // Mostrar películas
-                if (character.films.isNotEmpty()) {
-                    Text(text = "Películas: ${character.films.joinToString(", ")}")
+                    Text(
+                        text = character.name,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Mostrar películas
+                    if (character.films.isNotEmpty()) {
+                        Text(text = "Películas: ${character.films.joinToString(", ")}")
+                    }
+
+                    // Mostrar programas de TV
+                    if (character.tvShows.isNotEmpty()) {
+                        Text(text = "Series de TV: ${character.tvShows.joinToString(", ")}")
+                    }
+
+                    // Mostrar videojuegos
+                    if (character.videoGames.isNotEmpty()) {
+                        Text(text = "Videojuegos: ${character.videoGames.joinToString(", ")}")
+                    }
+
+
                 }
-
-                // Mostrar programas de TV
-                if (character.tvShows.isNotEmpty()) {
-                    Text(text = "Series de TV: ${character.tvShows.joinToString(", ")}")
-                }
-
-                // Mostrar videojuegos
-                if (character.videoGames.isNotEmpty()) {
-                    Text(text = "Videojuegos: ${character.videoGames.joinToString(", ")}")
-                }
-
-
-
             }
         }
     }
-}
+
 
 /*@Composable
 fun DetallePersonajeItem(personaje: Personaje) {

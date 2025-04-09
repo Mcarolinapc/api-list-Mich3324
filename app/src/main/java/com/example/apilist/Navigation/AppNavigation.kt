@@ -1,6 +1,8 @@
 package com.example.apilist.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -9,16 +11,17 @@ import com.example.apilist.ui.screens.DetalleScreen
 import com.example.apilist.ui.screens.ListScreen
 
 @Composable
-fun AppNavigation(){
-    val navController= rememberNavController()
-    NavHost(navController,Pantalla1){
-        composable<Pantalla1> {
-            ListScreen{ id->navController.navigate(Pantalla2(id))}
+
+//Ya no creamos la variable NavControler, se la pasamos por parametro
+fun AppNavigation(navController: NavHostController){
+    NavHost(navController, Destinacion.Pantalla1){
+        composable<Destinacion.Pantalla1> {
+            ListScreen{ id->navController.navigate(Destinacion.Pantalla2(id))}
         }
 
-        composable<Pantalla2> {  backStackEntry ->
-            val pantalla2 = backStackEntry.toRoute<Pantalla2>()
-            DetalleScreen(pantalla2.id) { navController.navigate(Pantalla1) }
+        composable<Destinacion.Pantalla2> { backStackEntry ->
+            val pantalla2 = backStackEntry.toRoute<Destinacion.Pantalla2>()
+            DetalleScreen(pantalla2.id) { navController.navigate(Destinacion.Pantalla1) }
         }
     }
 }

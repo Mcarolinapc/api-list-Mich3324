@@ -1,0 +1,53 @@
+package com.example.apilist.ui.screens
+
+import android.annotation.SuppressLint
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.navigation.compose.rememberNavController
+import com.example.apilist.Navigation.AppNavigation
+import com.example.apilist.Navigation.Destinacion
+import com.example.apilist.Navigation.NavigationItem
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun BaseScreen() {
+    var selectedItem: Int by remember { mutableIntStateOf(0) }
+    val items = listOf(
+        NavigationItem("Screen1", Icons.Default.Home, Destinacion.Pantalla1, 0),
+        NavigationItem("Screen2", Icons.Default.Person, Destinacion.Pantalla1, 1),
+        NavigationItem("Screen3", Icons.Default.Settings, Destinacion.Pantalla1, 2)
+    )
+    val navController = rememberNavController()
+
+    Scaffold(bottomBar = {
+        NavigationBar {
+            items.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = item.index == selectedItem,
+                    label = { Text(item.label) },
+                    icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
+                    onClick = {
+                        selectedItem = index
+                        navController.navigate(item.route)
+                    }
+                )
+            }
+        }
+    }){
+    AppNavigation(navController)
+    }
+
+
+}

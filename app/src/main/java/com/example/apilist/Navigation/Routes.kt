@@ -1,8 +1,12 @@
 package com.example.apilist.Navigation
 import kotlinx.serialization.Serializable
 
-@Serializable
-object Pantalla1
 
-@Serializable
-data class Pantalla2(val id:Int)
+sealed class Destinacion {
+    @Serializable
+    object Pantalla1 : Destinacion()
+
+    @Serializable
+    data class Pantalla2(val id: Int)
+
+}
