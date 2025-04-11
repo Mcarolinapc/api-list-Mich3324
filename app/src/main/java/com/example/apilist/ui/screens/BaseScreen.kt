@@ -2,6 +2,7 @@ package com.example.apilist.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
@@ -25,9 +26,9 @@ import com.example.apilist.Navigation.NavigationItem
 fun BaseScreen() {
     var selectedItem: Int by remember { mutableIntStateOf(0) }
     val items = listOf(
-        NavigationItem("Screen1", Icons.Default.Home, Destinacion.Pantalla1, 0),
-        NavigationItem("Screen2", Icons.Default.Person, Destinacion.Pantalla1, 1),
-        NavigationItem("Screen3", Icons.Default.Settings, Destinacion.Pantalla1, 2)
+        NavigationItem("Home", Icons.Default.Home, Destinacion.Pantalla1, 0),
+        NavigationItem("Favoritos", Icons.Default.Favorite, Destinacion.Pantalla1, 1),
+        NavigationItem("Configuración", Icons.Default.Settings, Destinacion.Pantalla1, 2)
     )
     val navController = rememberNavController()
 

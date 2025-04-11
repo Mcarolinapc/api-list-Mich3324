@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.apilist.ui.screens.DetalleScreen
+import com.example.apilist.ui.screens.FavoritesScreen
 import com.example.apilist.ui.screens.ListScreen
 
 @Composable
@@ -23,5 +24,10 @@ fun AppNavigation(navController: NavHostController){
             val pantalla2 = backStackEntry.toRoute<Destinacion.Pantalla2>()
             DetalleScreen(pantalla2.id) { navController.navigate(Destinacion.Pantalla1) }
         }
+
+        composable<Destinacion.Pantalla3> {
+            FavoritesScreen()
+        }
+
     }
 }

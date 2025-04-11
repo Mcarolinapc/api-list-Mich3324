@@ -9,4 +9,10 @@ sealed class Destinacion {
     @Serializable
     data class Pantalla2(val id: Int)
 
+    @Serializable
+    object Pantalla3
+
+    @Serializable
+    object Pantalla4
+
 }

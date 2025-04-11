@@ -17,9 +17,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,19 +49,24 @@ import com.example.apilist.viewmodel.APIViewModel
 
 @Composable
 
-fun DetalleScreen( id:Int, navigateToNext:()->Unit){
+fun DetalleScreen(id: Int, navigateToNext: () -> Unit) {
 
     val myViewModel: APIViewModel = viewModel<APIViewModel>()
-    val dataPersonaje: DataPersonaje by myViewModel.personaje.observeAsState(DataPersonaje(Personaje(), Info(0,"",0, 0)))
+    val dataPersonaje: DataPersonaje by myViewModel.personaje.observeAsState(
+        DataPersonaje(
+            Personaje(),
+            Info(0, "", 0, 0)
+        )
+    )
     val showloading: Boolean by myViewModel.showloading.observeAsState(true)
     myViewModel.getCharactersbyId(id)
 
 
-    Column (
+    Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ){
+    ) {
 
         if (showloading) {
             Column(
@@ -67,9 +77,11 @@ fun DetalleScreen( id:Int, navigateToNext:()->Unit){
                 CircularProgressIndicator()
             }
         } else {
-            LazyColumn(Modifier.fillMaxSize(),
+            LazyColumn(
+                Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center) {
+                verticalArrangement = Arrangement.Center
+            ) {
                 item {
                     DetallePersonajeItem(
                         character = dataPersonaje.data,
@@ -83,7 +95,7 @@ fun DetalleScreen( id:Int, navigateToNext:()->Unit){
         }
 
 
-        Button( onClick = { -> navigateToNext()}) {
+        Button(onClick = { -> navigateToNext() }) {
             Text("devuelvetebb")
         }
 
@@ -93,68 +105,80 @@ fun DetalleScreen( id:Int, navigateToNext:()->Unit){
 
 @Composable
 fun DetallePersonajeItem(character: Personaje, onClick: (Personaje) -> Unit) {
+    val myViewModel: APIViewModel = viewModel<APIViewModel>()
+    val isFavorite: Boolean by myViewModel.isFavorite.observeAsState(false)
 
-       Card(
-           border = BorderStroke(2.dp, color = Color.Black),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.padding(8.dp)
+
+    Card(
+        border = BorderStroke(2.dp, color = Color.Black),
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize()
+                .clickable { onClick(character) }
         ) {
-            Row(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxSize()
-                    .clickable { onClick(character) }
-            ) {
 
-                // Detalles del personaje
+            // Detalles del personaje
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                //imagen de corazón que cuando haga click ejecute el onclick que debe de guardar en BBDD
+
+                // Imagen del personaje usando AsyncImage
+                AsyncImage(
+                    model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
+                    contentDescription = character.name,
+                    modifier = Modifier
+                        .size(250.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
+                    error = painterResource(id = R.drawable.ic_launcher_background) // Imagen de error si la carga falla
+                )
                 Spacer(modifier = Modifier.width(16.dp))
 
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    //imagen de corazón que cuando haga click ejecute el onclick que debe de guardar en BBDD
+                Text(
+                    text = character.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-                    // Imagen del personaje usando AsyncImage
-                    AsyncImage(
-                        model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
-                        contentDescription = character.name,
-                        modifier = Modifier
-                            .size(250.dp)
-                            .clip(RoundedCornerShape(16.dp)),
-                        contentScale = ContentScale.Crop,
-                        placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
-                        error = painterResource(id = R.drawable.ic_launcher_background) // Imagen de error si la carga falla
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-                    Text(
-                        text = character.name,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Mostrar películas
-                    if (character.films.isNotEmpty()) {
-                        Text(text = "Películas: ${character.films.joinToString(", ")}")
-                    }
-
-                    // Mostrar programas de TV
-                    if (character.tvShows.isNotEmpty()) {
-                        Text(text = "Series de TV: ${character.tvShows.joinToString(", ")}")
-                    }
-
-                    // Mostrar videojuegos
-                    if (character.videoGames.isNotEmpty()) {
-                        Text(text = "Videojuegos: ${character.videoGames.joinToString(", ")}")
-                    }
-
-
+                // Mostrar películas
+                if (character.films.isNotEmpty()) {
+                    Text(text = "Películas: ${character.films.joinToString(", ")}")
                 }
+
+                // Mostrar programas de TV
+                if (character.tvShows.isNotEmpty()) {
+                    Text(text = "Series de TV: ${character.tvShows.joinToString(", ")}")
+                }
+
+                // Mostrar videojuegos
+                if (character.videoGames.isNotEmpty()) {
+                    Text(text = "Videojuegos: ${character.videoGames.joinToString(", ")}")
+                }
+
+                IconButton(onClick = {myViewModel.saveFavorite()}) {
+                    if(isFavorite){
+                        Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorite")
+                    }
+                    else{
+                        Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favorite")
+                    }
+
+
             }
         }
+
     }
+}}
 
 
 /*@Composable
