@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -26,16 +27,19 @@ import com.example.apilist.Navigation.Destinacion
 import com.example.apilist.Navigation.NavigationItem
 import com.example.apilist.ui.screens.BaseScreen
 import com.example.apilist.ui.theme.APIListTheme
-
+import com.example.apilist.viewmodel.ViewModelTheme
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val mainViewModel: ViewModelTheme by viewModels()
         setContent {
-            APIListTheme {
-               BaseScreen()
+            APIListTheme(darkTheme = mainViewModel.isDarkTheme.value) {
+               BaseScreen(
+                   onToggleTheme = { mainViewModel.toggleTheme() }
+               )
             }
         }
     }

@@ -14,7 +14,6 @@ data class CharacterEntity(
     val name: String = "",
     val sourceUrl: String = "",
     val updatedAt: String = "",
-    val url: String = "",
-
+    val url: String = ""
 
 )

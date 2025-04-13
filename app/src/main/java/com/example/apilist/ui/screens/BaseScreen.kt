@@ -21,14 +21,15 @@ import com.example.apilist.Navigation.AppNavigation
 import com.example.apilist.Navigation.Destinacion
 import com.example.apilist.Navigation.NavigationItem
 
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BaseScreen() {
+fun BaseScreen(onToggleTheme: () -> Unit) {
     var selectedItem: Int by remember { mutableIntStateOf(0) }
     val items = listOf(
         NavigationItem("Home", Icons.Default.Home, Destinacion.Pantalla1, 0),
-        NavigationItem("Favoritos", Icons.Default.Favorite, Destinacion.Pantalla1, 1),
-        NavigationItem("Configuración", Icons.Default.Settings, Destinacion.Pantalla1, 2)
+        NavigationItem("Favoritos", Icons.Default.Favorite, Destinacion.Pantalla3, 1),
+        NavigationItem("Configuración", Icons.Default.Settings, Destinacion.Pantalla4, 2)
     )
     val navController = rememberNavController()
 
@@ -46,8 +47,9 @@ fun BaseScreen() {
                 )
             }
         }
-    }){
-    AppNavigation(navController)
+    },
+    ){
+    AppNavigation(navController = navController, onToggleTheme = onToggleTheme)
     }
 
 

@@ -2,4 +2,19 @@
 <resources>
 
     <style name="Theme.APIList" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen">
+
+    <!-- Ícono animado (WebP animado en drawable) -->
+    <item name="windowSplashScreenAnimatedIcon">@drawable/miky</item>
+
+    <!-- Color de fondo mientras se muestra el splash -->
+    <item name="windowSplashScreenBackground">@color/black</item>
+
+    <!-- Tema a aplicar después del splash -->
+    <item name="postSplashScreenTheme">@style/Theme.APIList</item>
+
+    </style>
+
+
 </resources>

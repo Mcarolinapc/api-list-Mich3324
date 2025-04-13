@@ -1,6 +1,10 @@
 package com.example.apilist.viewmodel
 
 import androidx.annotation.OptIn
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.media3.common.util.Log
@@ -25,6 +29,7 @@ class APIViewModel : ViewModel() {
     private var _personaje = MutableLiveData<DataPersonaje>()
     val personaje = _personaje
 
+
     //Lista de characters de la base de dades
     private val _favorites = MutableLiveData<MutableList<CharacterEntity>>()
     val favorites = _favorites
@@ -36,7 +41,12 @@ class APIViewModel : ViewModel() {
     //Per mostrar un Toast quan es guardi/elimini un character de Favorits
     private val _showToast = MutableLiveData<Boolean>(false)
     val showToast = _showToast
-    private var toastMessage = ""
+
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String> = _toastMessage
+
+    var isDarkTheme by mutableStateOf(false)
+
 
     @OptIn(UnstableApi::class)
     fun getCharacters() {
@@ -66,6 +76,15 @@ class APIViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _personaje.value = response.body()
                     _showLoading.value = false
+
+                    // 🔥 Aquí comprobamos si ya está en favoritos
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val fav = repository.isFavorite(id)
+                        withContext(Dispatchers.Main) {
+                            _isFavorite.value = fav != null
+                        }
+                    }
+
                 } else {
                     Log.e("Error :", response.message())
                 }
@@ -94,9 +113,9 @@ class APIViewModel : ViewModel() {
             if (fav == null) {
                 repository.saveAsFavorite(
                     CharacterEntity(
-                        _id = _personaje.value!!.data._id,
+                        _id = characterId,
                         createdAt = _personaje.value!!.data.createdAt,
-                        film = _personaje.value!!.data.films.first(),
+                        film = _personaje.value?.data?.films?.firstOrNull() ?: "Sin película",
                         imageUrl = _personaje.value!!.data.url,
                         name = _personaje.value!!.data.name,
                         sourceUrl = _personaje.value!!.data.sourceUrl,
@@ -104,26 +123,16 @@ class APIViewModel : ViewModel() {
                         url = _personaje.value!!.data.url
                     )
                 )
-                withContext(Dispatchers.Main) {
-                    toastMessage = "Afegit a favorits"
-                    _showToast.value = true
-                    _isFavorite.value = true
-                }
+                _toastMessage.postValue("Agregado a favoritos")
             } else {
                 repository.deleteFavorite(fav)
-                withContext(Dispatchers.Main) {
-                    toastMessage = "Eliminat de favorits"
-                    _showToast.value = true
-                    _isFavorite.value = false
-                }
+                _toastMessage.postValue("Eliminado de favoritos")
+            }
+
+            withContext(Dispatchers.Main) {
+                showToast.value = true
             }
         }
-        _showToast.value = false
+        showToast.value = false
     }
-
-    fun getToastMessage(): String {
-        return toastMessage
-    }
-
-
 }

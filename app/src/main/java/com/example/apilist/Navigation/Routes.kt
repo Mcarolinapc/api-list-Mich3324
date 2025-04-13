@@ -7,12 +7,12 @@ sealed class Destinacion {
     object Pantalla1 : Destinacion()
 
     @Serializable
-    data class Pantalla2(val id: Int)
+    data class Pantalla2(val id: Int) :Destinacion()
 
     @Serializable
-    object Pantalla3
+    object Pantalla3 :Destinacion()
 
     @Serializable
-    object Pantalla4
+    object Pantalla4 :Destinacion()
 
 }
