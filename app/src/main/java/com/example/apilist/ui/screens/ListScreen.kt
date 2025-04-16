@@ -44,17 +44,31 @@ import com.example.apilist.data.model.Data
 import com.example.apilist.data.model.Info
 import com.example.apilist.data.model.Personaje
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import com.example.apilist.viewmodel.ViewModelTheme
 
 
 @Composable
 fun ListScreen(navigateToNext: (Int) -> Unit) {
     val myViewModel: APIViewModel = viewModel()
+    val themeViewModel: ViewModelTheme = viewModel()
     val characters: Data by myViewModel.characters.observeAsState(
         Data(emptyList(), Info(0, "", 0, 0))
     )
     val showloading: Boolean by myViewModel.showloading.observeAsState(true)
-    val disneyFont = FontFamily(Font(R.font.waltographui))
+
+    val isGrid by themeViewModel.isGrid.collectAsState(initial = true)
+
     myViewModel.getCharacters()
+
+    LaunchedEffect(Unit) {
+        myViewModel.getCharacters()
+    }
+
 
     // Capa base
     Box(modifier = Modifier.fillMaxSize()) {
@@ -74,56 +88,69 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
                 .padding(horizontal = 16.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Título
-            Text(
-                text = "Api By Mich",
-                fontFamily = disneyFont,
-                color = Color.Black,
-                fontSize = 28.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
 
             if (showloading) {
                 CircularProgressIndicator()
             } else {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f) // Esto hace que deje espacio para el título
-                ) {
-                    items(characters.data) { character ->
-                        CharacterItem(
-                            character = character,
-                            onClick = { clickedCharacter ->
-                                navigateToNext(clickedCharacter._id)
-                            }
-                        )
+                if(isGrid) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = PaddingValues(8.dp)
+
+                    ) {
+                        items(characters.data) { character ->
+                            CharacterItem(
+                                character = character,
+                                onClick = { clickedCharacter ->
+                                    navigateToNext(clickedCharacter._id)
+                                }
+                            )
+                        }
+                    }
+                }else{
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                    ) {
+                        items(characters.data) { character ->
+                            CharacterItem(
+                                character = character,
+                                onClick = { clickedCharacter ->
+                                    navigateToNext(clickedCharacter._id)
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
     }
 }
-
 @Composable
 fun CharacterItem(character: Personaje, onClick: (Personaje) -> Unit) {
     val disneyFont = FontFamily(Font(R.font.waltographui))
 
     Card(
-        border = BorderStroke(2.dp, color = Color.Black),
+        border = BorderStroke(2.dp, Color.Black),
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
+            .padding(4.dp)
             .fillMaxWidth()
-            .padding(8.dp),
+            .height(180.dp) // altura fija para que se vean como tarjetas
+            .clickable { onClick(character) },
         colors = CardDefaults.cardColors(
             containerColor = Color.White.copy(alpha = 0.7f)
         )
     ) {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .clickable { onClick(character) }
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 text = character.name,
@@ -131,7 +158,7 @@ fun CharacterItem(character: Personaje, onClick: (Personaje) -> Unit) {
                 color = Color.Black,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.padding(8.dp)
             )
         }
     }

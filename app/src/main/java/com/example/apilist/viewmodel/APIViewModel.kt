@@ -1,15 +1,11 @@
 package com.example.apilist.viewmodel
 
 import androidx.annotation.OptIn
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
-import androidx.room.PrimaryKey
 import com.example.apilist.data.database.CharacterEntity
 import com.example.apilist.data.model.Data
 import com.example.apilist.data.model.DataPersonaje
@@ -45,7 +41,7 @@ class APIViewModel : ViewModel() {
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String> = _toastMessage
 
-    var isDarkTheme by mutableStateOf(false)
+
 
 
     @OptIn(UnstableApi::class)
@@ -135,4 +131,16 @@ class APIViewModel : ViewModel() {
         }
         showToast.value = false
     }
+
+    fun deleteAllFavorites() {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.deleteAllFavorites()
+            withContext(Dispatchers.Main) {
+                _favorites.value = mutableListOf()
+                _toastMessage.value = "Todos los favoritos eliminados"
+                _showToast.value = true
+            }
+        }
+    }
+
 }
