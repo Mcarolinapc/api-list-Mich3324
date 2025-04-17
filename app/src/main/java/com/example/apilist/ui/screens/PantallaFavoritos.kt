@@ -64,25 +64,27 @@ fun FavoritesScreen() {
             contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
         )
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        if (showLoading) {
+            myViewModel.getFavorites()
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
 
-        ) {
-            if (showLoading) {
-                myViewModel.getFavorites()
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    CircularProgressIndicator(
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                }
-            } else {
+
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+
+            ) {
                 if (isGrid) {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
@@ -99,7 +101,7 @@ fun FavoritesScreen() {
                         }
 
                     }
-                } else {
+                } else { // prueba esto si esta mal borralo
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()

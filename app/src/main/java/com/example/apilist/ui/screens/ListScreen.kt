@@ -1,4 +1,5 @@
 package com.example.apilist.ui.screens
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -80,19 +81,16 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-
-        // Contenido principal encima
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            if (showloading) {
-                CircularProgressIndicator()
-            } else {
-                if(isGrid) {
+        if (showloading) {
+            CircularProgressIndicator()
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (isGrid) {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier
@@ -112,7 +110,7 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
                             )
                         }
                     }
-                }else{
+                } else {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -132,6 +130,7 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
         }
     }
 }
+
 @Composable
 fun CharacterItem(character: Personaje, onClick: (Personaje) -> Unit) {
     val disneyFont = FontFamily(Font(R.font.waltographui))

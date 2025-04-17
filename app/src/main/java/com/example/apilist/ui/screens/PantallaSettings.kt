@@ -95,10 +95,10 @@ fun Configuracion() {
                 textAlign = TextAlign.Start
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(100.dp))
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Face, contentDescription = null)
+            Row(modifier = Modifier.width(220.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
+                Icon(Icons.Default.Star, contentDescription = null, modifier = Modifier,Color.Yellow)
                 Spacer(Modifier.width(8.dp))
                 Text("Cambiar tema")
                 Spacer(Modifier.width(8.dp))
@@ -108,10 +108,10 @@ fun Configuracion() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+            Row(modifier = Modifier.width(220.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
+                Icon(Icons.Default.Star, contentDescription = null, modifier = Modifier,Color.Yellow)
                 Spacer(Modifier.width(8.dp))
                 Text("Vista")
                 Spacer(Modifier.width(8.dp))
@@ -138,7 +138,7 @@ fun Configuracion() {
                 }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
 
             Button(
