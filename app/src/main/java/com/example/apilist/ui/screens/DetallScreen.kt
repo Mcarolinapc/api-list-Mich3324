@@ -172,7 +172,7 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
                         .align(Alignment.CenterHorizontally),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
-                    error = painterResource(id = R.drawable.ic_launcher_background) // Imagen de error si la carga falla
+                    error = painterResource(id = R.drawable.sinohayimagen) // Imagen de error si la carga falla
                 )
 
                 Spacer(modifier = Modifier.width(16.dp))

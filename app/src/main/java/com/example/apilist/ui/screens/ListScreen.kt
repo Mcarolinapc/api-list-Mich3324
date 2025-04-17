@@ -82,7 +82,15 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
             contentScale = ContentScale.Crop
         )
         if (showloading) {
-            CircularProgressIndicator()
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
         } else {
             Column(
                 modifier = Modifier
