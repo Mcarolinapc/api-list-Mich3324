@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -59,7 +61,7 @@ fun FavoritesScreen() {
 
         // Imagen de fondo
         Image(
-            painter = painterResource(id = R.drawable.fondoscreen), // tu imagen en res/drawable
+            painter = painterResource(id = R.drawable.fondoscreen),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
@@ -78,11 +80,12 @@ fun FavoritesScreen() {
 
 
         } else {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp, vertical = 24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                     horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
                 if (isGrid) {
@@ -101,7 +104,7 @@ fun FavoritesScreen() {
                         }
 
                     }
-                } else { // prueba esto si esta mal borralo
+                } else {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()

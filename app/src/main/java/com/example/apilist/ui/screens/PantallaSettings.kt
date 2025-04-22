@@ -174,6 +174,5 @@ fun Configuracion() {
 
         }
 
-
     }
 }

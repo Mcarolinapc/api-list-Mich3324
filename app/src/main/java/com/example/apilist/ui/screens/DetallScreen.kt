@@ -89,7 +89,7 @@ fun DetalleScreen(id: Int, navigateToNext: () -> Unit) {
         )
 
 
-
+        Spacer(modifier = Modifier.width(16.dp))
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -139,6 +139,8 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
     val isFavorite: Boolean by myViewModel.isFavorite.observeAsState(false)
 
 
+
+
     Card(
         border = BorderStroke(2.dp, color = Color.Black),
         shape = RoundedCornerShape(8.dp),
@@ -161,6 +163,9 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
 
             Column(
                 modifier = Modifier.fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                     horizontalAlignment = Alignment.CenterHorizontally,
+
             ) {
                 // Imagen del personaje usando AsyncImage
                 AsyncImage(
@@ -222,8 +227,10 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Favorite",
-                            modifier = Modifier.size(36.dp),
-                            tint = Color.Red
+                            modifier = Modifier.size(36.dp)
+                            ,
+                            tint = Color.Red,
+
                         )
                     } else {
                         Icon(
@@ -234,7 +241,6 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
                         )
                     }
                 }
-
 
             }
 
