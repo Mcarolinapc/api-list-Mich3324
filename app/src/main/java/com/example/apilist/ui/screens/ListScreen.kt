@@ -81,6 +81,7 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+
         if (showloading) {
             Row(
                 modifier = Modifier.fillMaxSize(),
@@ -98,42 +99,50 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
                     .padding(horizontal = 16.dp, vertical = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (isGrid) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(8.dp)
 
-                    ) {
-                        items(characters.data) { character ->
-                            CharacterItem(
-                                character = character,
-                                onClick = { clickedCharacter ->
-                                    navigateToNext(clickedCharacter._id)
-                                }
-                            )
+                Spacer(modifier = Modifier.height(100.dp))
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    if (isGrid) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                               // .weight(1f)
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            contentPadding = PaddingValues(8.dp)
+
+                        ) {
+                            items(characters.data) { character ->
+                                CharacterItem(
+                                    character = character,
+                                    onClick = { clickedCharacter ->
+                                        navigateToNext(clickedCharacter._id)
+                                    }
+                                )
+                            }
                         }
-                    }
-                } else {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                    ) {
-                        items(characters.data) { character ->
-                            CharacterItem(
-                                character = character,
-                                onClick = { clickedCharacter ->
-                                    navigateToNext(clickedCharacter._id)
-                                }
-                            )
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                //.weight(1f)
+                        ) {
+                            items(characters.data) { character ->
+                                CharacterItem(
+                                    character = character,
+                                    onClick = { clickedCharacter ->
+                                        navigateToNext(clickedCharacter._id)
+                                    }
+                                )
+                            }
                         }
                     }
                 }
+
+                Spacer(modifier = Modifier.height(100.dp))
             }
         }
     }

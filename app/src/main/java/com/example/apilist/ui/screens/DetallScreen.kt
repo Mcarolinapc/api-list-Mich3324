@@ -82,7 +82,7 @@ fun DetalleScreen(id: Int, navigateToNext: () -> Unit) {
     ) {
 
         Image(
-            painter = painterResource(id = R.drawable.detallefondo), // Asegúrate de tener esta imagen en res/drawable
+            painter = painterResource(id = R.drawable.detallefondo),
             contentDescription = "Fondo",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -138,9 +138,6 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
     val myViewModel: APIViewModel = viewModel<APIViewModel>()
     val isFavorite: Boolean by myViewModel.isFavorite.observeAsState(false)
 
-
-
-
     Card(
         border = BorderStroke(2.dp, color = Color.Black),
         shape = RoundedCornerShape(8.dp),
@@ -151,37 +148,55 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
             containerColor = Color.White.copy(alpha = 0.7f)
         )
     ) {
-        Row(
+
+
+        Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End)
+        {
+            IconButton(onClick = { myViewModel.saveFavorite() }) {
+                if (isFavorite) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = "Favorite",
+                        modifier = Modifier.size(36.dp),
+                        tint = Color.Red,
+
+                        )
+                } else {
+                    Icon(
+                        imageVector = Icons.Default.FavoriteBorder,
+                        contentDescription = "Favorite",
+                        modifier = Modifier.size(36.dp)
+
+                    )
+                }
+            }
+        }
+
+        Column(
             modifier = Modifier
-                .padding(16.dp)
                 .fillMaxSize()
-                .clickable { onClick(character) }
-        ) {
-
-            // Detalles del personaje
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(
-                modifier = Modifier.fillMaxSize()
-                    .padding(horizontal = 16.dp, vertical = 24.dp),
-                     horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(horizontal = 16.dp, vertical = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
-                // Imagen del personaje usando AsyncImage
-                AsyncImage(
-                    model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
-                    contentDescription = character.name,
-                    modifier = Modifier
-                        .size(250.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .align(Alignment.CenterHorizontally),
-                    contentScale = ContentScale.Crop,
-                    placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
-                    error = painterResource(id = R.drawable.sinohayimagen) // Imagen de error si la carga falla
-                )
 
-                Spacer(modifier = Modifier.width(16.dp))
+            AsyncImage(
+                model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
+                contentDescription = character.name,
+                modifier = Modifier
+                    .size(150.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .align(Alignment.CenterHorizontally),
+                contentScale = ContentScale.Crop,
+                placeholder = painterResource(id = R.drawable.ic_launcher_foreground), // Imagen de placeholder
+                error = painterResource(id = R.drawable.sinohayimagen) // Imagen de error si la carga falla
+            )
+            Spacer(modifier = Modifier.width(20.dp))
 
+            Column( modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,) {
                 Text(
                     text = character.name,
                     fontFamily = disneyFont,
@@ -189,7 +204,7 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.fillMaxWidth(),
                     color = Color.Black
-                    )
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -208,43 +223,30 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
 
                 // Mostrar programas de TV
                 if (character.tvShows.isNotEmpty()) {
-                    Text(text = "Series de TV: ${character.tvShows.joinToString(", ")}", textAlign = TextAlign.Center,
+                    Text(
+                        text = "Series de TV: ${character.tvShows.joinToString(", ")}",
+                        textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.fillMaxWidth(),
-                        color = Color.Black)
+                        color = Color.Black
+                    )
                 }
 
                 // Mostrar videojuegos
                 if (character.videoGames.isNotEmpty()) {
-                    Text(text = "Videojuegos: ${character.videoGames.joinToString(", ")}", textAlign = TextAlign.Center,
+                    Text(
+                        text = "Videojuegos: ${character.videoGames.joinToString(", ")}",
+                        textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.fillMaxWidth(),
-                        color = Color.Black)
-                }
-
-                IconButton(onClick = { myViewModel.saveFavorite() }) {
-                    if (isFavorite) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = "Favorite",
-                            modifier = Modifier.size(36.dp)
-                            ,
-                            tint = Color.Red,
-
-                        )
-                    } else {
-                        Icon(
-                            imageVector = Icons.Default.FavoriteBorder,
-                            contentDescription = "Favorite",
-                            modifier = Modifier.size(36.dp)
-
-                        )
-                    }
+                        color = Color.Black
+                    )
                 }
 
             }
 
         }
+
     }
 }
 

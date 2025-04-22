@@ -85,33 +85,36 @@ fun FavoritesScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp, vertical = 24.dp),
-                     horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
-                if (isGrid) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(8.dp)
+                Spacer(modifier = Modifier.height(100.dp))
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    if (isGrid) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            contentPadding = PaddingValues(8.dp)
 
-                    ) {
-                        items(characters) {
-                            CharacterItem(it)
+                        ) {
+                            items(characters) {
+                                CharacterItem(it)
+                            }
+
                         }
-
-                    }
-                } else {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                    ) {
-                        items(characters) {
-                            CharacterItem(it)
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            items(characters) {
+                                CharacterItem(it)
+                            }
                         }
                     }
                 }
