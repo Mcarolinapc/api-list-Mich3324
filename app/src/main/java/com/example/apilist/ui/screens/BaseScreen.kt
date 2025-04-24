@@ -1,6 +1,8 @@
 package com.example.apilist.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -16,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.apilist.Navigation.AppNavigation
 import com.example.apilist.Navigation.Destinacion
@@ -47,10 +50,11 @@ fun BaseScreen() {
                 )
             }
         }
-    },
-    ){
-        AppNavigation(navController = navController)
     }
-
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            AppNavigation(navController = navController)
+        }
+    }
 
 }

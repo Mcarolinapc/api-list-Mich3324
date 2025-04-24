@@ -150,7 +150,7 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
     ) {
 
 
-        Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End)
+        Row(modifier = Modifier.fillMaxSize().padding(20.dp), horizontalArrangement = Arrangement.End)
         {
             IconButton(onClick = { myViewModel.saveFavorite() }) {
                 if (isFavorite) {
@@ -184,7 +184,7 @@ fun CardDetallePersonaje(character: Personaje, onClick: (Personaje) -> Unit) {
                 model = character.imageUrl, // Aquí usa character.imageUrl si quieres cargar la imagen dinámica
                 contentDescription = character.name,
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(250.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .align(Alignment.CenterHorizontally),
                 contentScale = ContentScale.Crop,

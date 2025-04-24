@@ -100,10 +100,7 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Spacer(modifier = Modifier.height(100.dp))
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
+                Spacer(modifier = Modifier.height(25.dp))
                     if (isGrid) {
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(2),
@@ -127,7 +124,7 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
                     } else {
                         LazyColumn(
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .fillMaxSize()
                                 //.weight(1f)
                         ) {
                             items(characters.data) { character ->
@@ -140,7 +137,7 @@ fun ListScreen(navigateToNext: (Int) -> Unit) {
                             }
                         }
                     }
-                }
+
 
                 Spacer(modifier = Modifier.height(100.dp))
             }
