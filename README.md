@@ -56,7 +56,8 @@
 
 <div align="center">
   <h3 Vídeo Demostrativo de la App</h3>
- https://github.com/user-attachments/assets/3daa6122-3628-4c1a-89c5-7e31f028986e
+
+https://github.com/user-attachments/assets/51a31af5-67b5-4097-84b5-ca2c30816f3a
   <p><em>Exploración de personajes, alternancia de vistas (Grid/Lista) y sistema de favoritos en tiempo real.</em></p>
 </div>
 
