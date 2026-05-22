@@ -1,4 +1,4 @@
-# ApiDisney - Explorador de Personajes
+# ApiDisney 
 
 **ApiDisney** es una aplicación móvil nativa para Android enfocada en explorar el universo de personajes de Disney. Este proyecto escolar destaca por integrar una arquitectura robusta orientada a componentes modernos de Android, gestionando de forma eficiente el consumo de servicios web, la persistencia en bases de datos locales y la reactividad de la interfaz.
 
@@ -56,7 +56,7 @@
 
 <div align="center">
   <h3 Vídeo Demostrativo de la App</h3>
-  <video src="Imagenes/ApiList.mp4" width="280" controls alt="Demostración de la aplicación ApiDisney"></video>
+ https://github.com/user-attachments/assets/3daa6122-3628-4c1a-89c5-7e31f028986e
   <p><em>Exploración de personajes, alternancia de vistas (Grid/Lista) y sistema de favoritos en tiempo real.</em></p>
 </div>
 
