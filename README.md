@@ -62,11 +62,12 @@
 
 <br>
 
+<h3> Capturas de Pantalla</h3>
+
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
   <img src="Imagenes/home_grid.jpeg" width="220" alt="Vista Home en Grid">
   <img src="Imagenes/home_list.jpeg" width="220" alt="Vista Home en Lista">
   <img src="Imagenes/detalle.jpeg" width="220" alt="Detalle del Personaje">
-   <img src="Imagenes/favoritos.jpeg" width="220" alt="Pantalla Favoritos">
   <img src="Imagenes/configuracion.jpeg" width="220" alt="Pantalla de Configuración">
   
 </div>
