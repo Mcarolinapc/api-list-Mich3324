@@ -56,18 +56,18 @@
 
 <div align="center">
   <h3 Vídeo Demostrativo de la App</h3>
-  <video src="Imagenes/ApiListmp4" width="280" controls alt="Demostración de la aplicación ApiDisney"></video>
+  <video src="Imagenes/ApiList.mp4" width="280" controls alt="Demostración de la aplicación ApiDisney"></video>
   <p><em>Exploración de personajes, alternancia de vistas (Grid/Lista) y sistema de favoritos en tiempo real.</em></p>
 </div>
 
 <br>
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-  <img src="Imagenes/home_grid.jpg" width="220" alt="Vista Home en Grid">
-  <img src="Imagenes/home_list.jpg" width="220" alt="Vista Home en Lista">
-  <img src="Imagenes/detalle.jpg" width="220" alt="Detalle del Personaje">
-   <img src="Imagenes/favoritos.jpg" width="220" alt="Pantalla Favoritos">
-  <img src="Imagenes/configuracion.jpg" width="220" alt="Pantalla de Configuración">
+  <img src="Imagenes/home_grid.jpeg" width="220" alt="Vista Home en Grid">
+  <img src="Imagenes/home_list.jpeg" width="220" alt="Vista Home en Lista">
+  <img src="Imagenes/detalle.jpeg" width="220" alt="Detalle del Personaje">
+   <img src="Imagenes/favoritos.jpeg" width="220" alt="Pantalla Favoritos">
+  <img src="Imagenes/configuracion.jpeg" width="220" alt="Pantalla de Configuración">
   
 </div>
 
