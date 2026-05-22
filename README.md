@@ -69,7 +69,7 @@ https://github.com/user-attachments/assets/51a31af5-67b5-4097-84b5-ca2c30816f3a
   <img src="Imagenes/home_grid.jpeg" width="220" alt="Vista Home en Grid">
   <img src="Imagenes/home_list.jpeg" width="220" alt="Vista Home en Lista">
   <img src="Imagenes/detalle.jpeg" width="220" alt="Detalle del Personaje">
-  <img src="Imagenes/configuracion.jpeg" width="220" alt="Pantalla de Configuración">
+  <img src="Imagenes/configuracio.jpeg" width="220" alt="Pantalla de Configuración">
   
 </div>
 
